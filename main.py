@@ -23,15 +23,26 @@ C3 = Map("room C3", "This is room C3")
 
 
 
+
 map_array = [[A1, A2, A3], 
 [B1, B2, B3],
 [C1, C2, C3]]
+
+
+inv = []
+
+
+
+
 
 class Player:
     def __init__(self, x, y, action):
         self.location = [x, y]
         self.action = action
 
+
+    
+    
     def move_player(self):
         move = input("which way do you want to go\n")
         if move == "w":
@@ -46,24 +57,35 @@ class Player:
             print("invalid input")
 
             return
-
+ 
         if self.location[0] > 2:
             self.location[0] = 2
+            print("you can't go that way")
         elif self.location[0] < 0:
             self.location[0] = 0
-        elif
+            print("you can't go that way")
+        elif self.location[1] > 2:
+            self.location[1] = 2
+            print("you can't go that way")
+        elif self.location[1] < 0:
+            self.location[1] = 0
         
         map_array[self.location[1]][self.location[0]].print_tile_name()
+        map_array[self.location[1]][self.location[0]].print_tile_description()
+        input()
+
+        
+        
+        evan.move_player()
+
+
+            
         
         
 
 
 
-"""move = input("what dirrection do you want to go?")
-if  move == "d":
-     x += 1
-elif move == "a":
-     x -= 1"""
+
 
 evan = Player(0, 0, "action")
 evan.move_player()
