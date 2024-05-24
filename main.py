@@ -5,11 +5,11 @@ class Map:
         self.tile_description = tile_description
 
     def print_tile_name(self):
-        print(str("you are in ")+(self.tile_name))
+        print(str("you are in ") + (self.tile_name))
 
     def print_tile_description(self):
         print(self.tile_description)
-        
+
 
 A1 = Map("room A1", "This is room A1")
 A2 = Map("room A2", "This is room A2")
@@ -21,30 +21,46 @@ C1 = Map("room C1", "This is room C1")
 C2 = Map("room C2", "This is room C2")
 C3 = Map("room C3", "This is room C3")
 
-
-
-
-map_array = [[A1, A2, A3], 
-[B1, B2, B3],
-[C1, C2, C3]]
-
+map_array = [[A1, A2, A3], [B1, B2, B3], [C1, C2, C3]]
 
 inv = []
 
 
-
-
-
 class Player:
+
     def __init__(self, x, y, action):
         self.location = [x, y]
         self.action = action
+        self.swordget = False
 
+    def act_choice(self):
+        action_choose = input(
+            "What would you like to do? m = move, i = inventory")
+        if action_choose == "m":
+            self.move_player
+        elif action_choose == "i":
+            print (inv)
+        else:
+            print("Please choose a valid action")
+            self.act_choice()
 
-    
-    
+    def item_get(self):
+        if self.location == [1, 1] and not self.swordget:
+            pickupC = input(
+                "would you like to pick up the sword (type y or n)")
+            if pickupC == "y":
+                self.swordget = True
+                print("you have picked up the sword")
+                inv.append("sword")
+            elif pickupC == "n":
+                evan.move_player()
+
+        
+        else:
+            pass
+
     def move_player(self):
-        move = input("which way do you want to go\n")
+        move = input("which way do you want to go?(type m to open menu)\n")
         if move == "w":
             self.location[1] -= 1
         elif move == "s":
@@ -53,11 +69,13 @@ class Player:
             self.location[0] -= 1
         elif move == "d":
             self.location[0] += 1
+        elif move == "m":
+            evan.act_choice()    
         else:
             print("invalid input")
+            self.move_player()
+            
 
-            return
- 
         if self.location[0] > 2:
             self.location[0] = 2
             print("you can't go that way")
@@ -69,51 +87,22 @@ class Player:
             print("you can't go that way")
         elif self.location[1] < 0:
             self.location[1] = 0
+            print("you can't go that way")
+            
         
         map_array[self.location[1]][self.location[0]].print_tile_name()
         map_array[self.location[1]][self.location[0]].print_tile_description()
         input()
 
-        
-        
+        self.item_get()
+
         evan.move_player()
-
-
-            
-        
-        
-
-
-
 
 
 evan = Player(0, 0, "action")
 evan.move_player()
 
 #map_array[y][x].move_player()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 """def __init__(self, x, y):
         self.x = x
         self.y = y
@@ -224,4 +213,3 @@ def loc_info():
 
 
 loc_info()"""
-
